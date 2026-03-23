@@ -210,6 +210,101 @@
                 </div>
             </div>
         </section>
+
+        <!-- Script de animação embutido no main -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const canvas = document.getElementById('hero-canvas');
+                if (canvas) {
+                    const context = canvas.getContext('2d');
+                    const heroSection = document.querySelector('.hero-section');
+                    
+                    const frameCount = 247;
+                    // Procura os ficheiros na mesma pasta
+                    const currentFrame = index => `${index.toString().padStart(4, '0')}.jpg`;
+
+                    const images = [];
+                    const preloadImages = () => {
+                        for (let i = 1; i <= frameCount; i++) {
+                            const img = new Image();
+                            img.src = currentFrame(i);
+                            images.push(img);
+                        }
+                    };
+
+                    function resizeCanvas() {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                        if (images[lastRenderedFrameIndex] && images[lastRenderedFrameIndex].complete) {
+                            renderFrame(images[lastRenderedFrameIndex]);
+                        }
+                    }
+
+                    window.addEventListener('resize', resizeCanvas);
+
+                    let lastRenderedFrameIndex = 0;
+
+                    function renderFrame(img) {
+                        if (!img || !img.complete || img.naturalWidth === 0) return;
+                        
+                        const hRatio = canvas.width / img.width;
+                        const vRatio = canvas.height / img.height;
+                        const ratio  = Math.max(hRatio, vRatio);
+                        const centerShift_x = (canvas.width - img.width * ratio) / 2;
+                        const centerShift_y = (canvas.height - img.height * ratio) / 2;  
+                        
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.drawImage(img, 0,0, img.width, img.height,
+                                          centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
+                    }
+
+                    preloadImages();
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    
+                    let currentFrameIndex = 0;
+                    let lastTime = 0;
+                    const fps = 12; 
+                    const frameInterval = 1000 / fps;
+
+                    function animate(time) {
+                        if (!lastTime) lastTime = time;
+                        const elapsed = time - lastTime;
+
+                        if (elapsed > frameInterval) {
+                            lastTime = time - (elapsed % frameInterval);
+                            
+                            if (images[currentFrameIndex] && images[currentFrameIndex].complete) {
+                                renderFrame(images[currentFrameIndex]);
+                                lastRenderedFrameIndex = currentFrameIndex;
+                            }
+                            
+                            currentFrameIndex = (currentFrameIndex + 1) % frameCount;
+                        }
+                        requestAnimationFrame(animate);
+                    }
+
+                    images[0].onload = () => {
+                        requestAnimationFrame(animate);
+                    };
+                    if (images[0].complete) {
+                        requestAnimationFrame(animate);
+                    }
+
+                    // Parallax effect no background do hero
+                    window.addEventListener('scroll', () => {
+                        // Aplica o parallax apenas quando o hero está visível para otimização do browser
+                        if (window.scrollY <= window.innerHeight) {
+                            // Move o wrapper do canvas metade da velocidade do scroll
+                            const stickyWrapper = heroSection.querySelector('.hero-sticky');
+                            if (stickyWrapper) {
+                                stickyWrapper.style.transform = `translateY(${window.scrollY * 0.6}px)`;
+                            }
+                        }
+                    });
+                }
+            });
+        </script>
     </main>
 
     <footer>
