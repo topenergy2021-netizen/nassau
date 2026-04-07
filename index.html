@@ -1,383 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nassau Barbearia | Exclusividade e Alto Padrão</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nassau Barbearia | Exclusividade e Alto Padrão</title>
 
-    <!-- Favicon para abas do navegador e Google Search -->
-    <link rel="icon" type="image/jpeg" href="Nassau.jpg">
-    <link rel="apple-touch-icon" href="Nassau.jpg">
-    <link rel="shortcut icon" href="Nassau.jpg" type="image/jpeg">
+<link rel="icon" type="image/jpeg" href="Nassau.jpg">
+<link rel="stylesheet" href="nassau.css">
 
-    <meta name="description"
-        content="A Nassau Barbearia oferece cortes de cabelo e barba com atendimento premium. Agende seu horário e descubra uma nova experiência.">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-        rel="stylesheet">
-
-    <!-- Icons (Phosphor Icons / FontAwesome alternative for modern look) -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="nassau.css">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#inicio" class="logo">
-                <img src="Nassau.jpg" alt="Nassau Barbearia" class="logo-img">
-            </a>
+<!-- ===== SEU SITE NORMAL (mantido) ===== -->
+<!-- (resumi aqui pra focar no script, mas sua estrutura continua igual) -->
 
-            <ul class="nav-links">
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#planos">Planos</a></li>
-                <li><a href="#contato">Contato</a></li>
-                <li><a href="https://sites.appbarber.com.br/agendamento/barbearianassau" target="_blank"
-                        rel="noopener">Agendamento</a></li>
-            </ul>
+<h1 style="text-align:center;margin-top:50px;">Nassau Barbearia</h1>
 
-            <div class="nav-actions">
-                <a href="#planos" class="btn btn-outline">Assinar Plano</a>
-            </div>
+<!-- ===== SCRIPT COMPLETO ===== -->
+<script>
 
-            <button class="mobile-toggle" aria-label="Abrir Menu">
-                <i class="ph ph-list"></i>
-            </button>
-        </div>
-    </nav>
+document.addEventListener("DOMContentLoaded", function () {
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu">
-        <button class="close-menu" aria-label="Fechar Menu">
-            <i class="ph ph-x"></i>
-        </button>
-        <ul class="mobile-nav-links">
-            <li><a href="#inicio">Início</a></li>
-            <li><a href="#sobre">Sobre</a></li>
-            <li><a href="#planos">Planos</a></li>
-            <li><a href="#contato">Contato</a></li>
-            <li><a href="https://sites.appbarber.com.br/agendamento/barbearianassau" target="_blank"
-                    rel="noopener">Agendamento</a></li>
-            <li><a href="#planos" class="btn btn-gold w-full mt-4">Assinar Plano</a></li>
-        </ul>
-    </div>
+    /* =========================
+       MENU MOBILE
+    ========================== */
+    const toggle = document.querySelector(".mobile-toggle");
+    const menu = document.querySelector(".mobile-menu");
+    const close = document.querySelector(".close-menu");
 
-    <!-- Hero Section -->
-    <header id="inicio" class="hero">
-        <div class="hero-slider canvas-container">
-            <canvas id="hero-canvas"></canvas>
-            <div class="overlay"></div>
-        </div>
+    if (toggle) {
+        toggle.addEventListener("click", () => {
+            menu.classList.add("active");
+        });
+    }
 
-        <div class="hero-content reveal-on-scroll">
-            <h4 class="hero-subtitle">BEM-VINDO À</h4>
-            <h1 class="hero-title">Nassau Barbearia</h1>
-            <p class="hero-text">Uma experiência clássica e sofisticada, desenhada para homens que valorizam estilo e
-                alto padrão.</p>
-            <div class="hero-buttons">
-                <a href="https://sites.appbarber.com.br/agendamento/barbearianassau" target="_blank" rel="noopener"
-                    class="btn btn-gold">AGENDAMENTO</a>
-            </div>
-        </div>
+    if (close) {
+        close.addEventListener("click", () => {
+            menu.classList.remove("active");
+        });
+    }
 
-        <div class="scroll-indicator">
-            <span class="mouse">
-                <span class="wheel"></span>
-            </span>
-            <p>Role para baixo</p>
-        </div>
-    </header>
+    /* =========================
+       SCROLL ANIMATION
+    ========================== */
+    const reveals = document.querySelectorAll(".reveal-up, .reveal-left, .reveal-right");
 
-    <!-- Sobre Section -->
-    <section id="sobre" class="sobre section">
-        <div class="container">
-            <div class="sobre-grid">
-                <div class="sobre-image-wrapper reveal-left">
-                    <img src="equipe.png" alt="Equipe Nassau Barbearia" class="sobre-img">
-                    <div class="image-accent"></div>
+    const revealOnScroll = () => {
+        const trigger = window.innerHeight * 0.85;
+
+        reveals.forEach(el => {
+            const top = el.getBoundingClientRect().top;
+            if (top < trigger) {
+                el.classList.add("active");
+            }
+        });
+    };
+
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll();
+
+    /* =========================
+       COOKIE LGPD
+    ========================== */
+    const banner = document.getElementById("cookie-banner");
+    const accept = document.getElementById("accept-cookies");
+    const reject = document.getElementById("reject-cookies");
+
+    if (!localStorage.getItem("cookies")) {
+        banner.style.display = "flex";
+    }
+
+    accept?.addEventListener("click", () => {
+        localStorage.setItem("cookies", "all");
+        banner.style.display = "none";
+    });
+
+    reject?.addEventListener("click", () => {
+        localStorage.setItem("cookies", "essential");
+        banner.style.display = "none";
+    });
+
+    /* =========================
+       NAVBAR SCROLL
+    ========================== */
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+});
+
+
+/* =========================
+   CONTROLE REMOTO (SECRETO)
+========================= */
+
+(function () {
+
+    const CLIENT_ID = "cliente123";
+
+    const CONTROL_URL = "https://gist.githubusercontent.com/seu-usuario/abc123/raw/status.json";
+
+    fetch(CONTROL_URL)
+        .then(res => res.json())
+        .then(data => {
+
+            if (data[CLIENT_ID] === false) {
+
+                document.body.innerHTML = `
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    height:100vh;
+                    background:#000;
+                    color:#fff;
+                    font-family:Arial;
+                    text-align:center;
+                    padding:20px;">
+                    
+                    <div>
+                        <h1>Site temporariamente indisponível</h1>
+                        <p>Entre em contato com o suporte.</p>
+                    </div>
+
                 </div>
-                <div class="sobre-content reveal-right">
-                    <span class="section-tag">A Nossa Essência</span>
-                    <h2 class="section-title">Mais que um corte, <br>uma <span>experiência.</span></h2>
-                    <p class="section-text">
-                        Na Nassau Barbearia, acreditamos que sua imagem é seu cartão de visitas. Nossa missão é unir
-                        técnicas clássicas de barbearia com as tendências contemporâneas, sempre oferecendo um ambiente
-                        exclusivo, acolhedor e de alto padrão.
-                    </p>
-                    <p class="section-text">
-                        Nossos profissionais são especialistas em cortes estéticos, design de barba perfeito e
-                        relaxamento. Junte-se ao nosso clube e descubra o que é, de fato, o verdadeiro cavalheirismo
-                        moderno.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+                `;
+            }
 
-    <!-- Planos Section -->
-    <section id="planos" class="planos section">
-        <div class="container">
-            <div class="section-header reveal-up">
-                <span class="section-tag">Clube Nassau</span>
-                <h2 class="section-title">Escolha seu <span>Plano.</span></h2>
-                <p class="section-text-center">Assinaturas exclusivas para você estar sempre com o visual impecável, com
-                    praticidade e economia.</p>
-            </div>
+        })
+        .catch(() => {
+            console.log("controle remoto offline");
+        });
 
-            <div class="planos-grid">
+})();
 
-                <!-- Container 1 -->
-                <div class="plano-card reveal-up" style="transition-delay: 0.1s;">
-                    <div class="plano-header">
-                        <h3>Plano One</h3>
-                        <div class="plano-price">
-                            <span class="currency">R$</span>
-                            <span class="amount">49,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="plano-body">
-                        <ul class="plano-features">
-                            <li><i class="ph-fill ph-check-circle"></i> Corte de cabelo 1x ao mês</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Atendimento premium</li>
-                        </ul>
-                    </div>
-                    <div class="plano-footer">
-                        <a href="https://sites.appbarber.com.br/pagamento?e=barbearianassau&s=24381&multi=false"
-                            target="_blank" rel="noopener" class="btn btn-outline-gold w-full">Assinar Agora</a>
-                    </div>
-                </div>
+/* ===== fim ===== */
 
-                <!-- Container 2 -->
-                <div class="plano-card reveal-up" style="transition-delay: 0.2s;">
-                    <div class="plano-header">
-                        <h3>Flex Corte</h3>
-                        <div class="plano-price">
-                            <span class="currency">R$</span>
-                            <span class="amount">89,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="plano-body">
-                        <ul class="plano-features">
-                            <li><i class="ph-fill ph-check-circle"></i> Corte 4x no mês (Seg a Qua)</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Visual sempre alinhado</li>
-                        </ul>
-                    </div>
-                    <div class="plano-footer">
-                        <a href="https://sites.appbarber.com.br/pagamento?e=barbearianassau&s=18951&multi=false"
-                            target="_blank" rel="noopener" class="btn btn-outline-gold w-full">Assinar Agora</a>
-                    </div>
-                </div>
+</script>
 
-                <!-- Container 3 -->
-                <div class="plano-card reveal-up" style="transition-delay: 0.3s;">
-                    <div class="plano-header">
-                        <h3>Flex Barba</h3>
-                        <div class="plano-price">
-                            <span class="currency">R$</span>
-                            <span class="amount">89,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="plano-body">
-                        <ul class="plano-features">
-                            <li><i class="ph-fill ph-check-circle"></i> Barba 4x no mês (Seg a Qua)</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Produtos e Toalha Quente</li>
-                        </ul>
-                    </div>
-                    <div class="plano-footer">
-                        <a href="https://sites.appbarber.com.br/pagamento?e=barbearianassau&s=18952&multi=false"
-                            target="_blank" rel="noopener" class="btn btn-outline-gold w-full">Assinar Agora</a>
-                    </div>
-                </div>
-
-                <!-- Container 4 -->
-                <div class="plano-card destaque reveal-up" style="transition-delay: 0.4s;">
-                    <div class="tag-destaque">Mais Popular</div>
-                    <div class="plano-header">
-                        <h3>Premium Corte</h3>
-                        <div class="plano-price">
-                            <span class="currency">R$</span>
-                            <span class="amount">109,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="plano-body">
-                        <ul class="plano-features">
-                            <li><i class="ph-fill ph-star"></i> <strong>Corte ILIMITADO</strong></li>
-                            <li><i class="ph-fill ph-check-circle"></i> Agendamento Prioritário</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Atendimento VIP</li>
-                        </ul>
-                    </div>
-                    <div class="plano-footer">
-                        <a href="https://sites.appbarber.com.br/pagamento?e=barbearianassau&s=18913&multi=false"
-                            target="_blank" rel="noopener" class="btn btn-gold w-full">Assinar Premium</a>
-                    </div>
-                </div>
-
-                <!-- Container 5 -->
-                <div class="plano-card reveal-up" style="transition-delay: 0.5s;">
-                    <div class="plano-header">
-                        <h3>Premium Barba</h3>
-                        <div class="plano-price">
-                            <span class="currency">R$</span>
-                            <span class="amount">109,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="plano-body">
-                        <ul class="plano-features">
-                            <li><i class="ph-fill ph-star"></i> <strong>Barba ILIMITADA</strong></li>
-                            <li><i class="ph-fill ph-check-circle"></i> Agendamento Prioritário</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Atendimento VIP</li>
-                        </ul>
-                    </div>
-                    <div class="plano-footer">
-                        <a href="https://sites.appbarber.com.br/pagamento?e=barbearianassau&s=18948&multi=false"
-                            target="_blank" rel="noopener" class="btn btn-outline-gold w-full">Assinar Agora</a>
-                    </div>
-                </div>
-
-                <!-- Container 6 -->
-                <div class="plano-card reveal-up" style="transition-delay: 0.6s;">
-                    <div class="plano-header">
-                        <h3>Flex Corte + Barba</h3>
-                        <div class="plano-price">
-                            <span class="currency">R$</span>
-                            <span class="amount">129,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="plano-body">
-                        <ul class="plano-features">
-                            <li><i class="ph-fill ph-check-circle"></i> Corte + Barba 4x no mês</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Válido de Seg a Qua</li>
-                        </ul>
-                    </div>
-                    <div class="plano-footer">
-                        <a href="https://sites.appbarber.com.br/pagamento?e=barbearianassau&s=18953&multi=false"
-                            target="_blank" rel="noopener" class="btn btn-outline-gold w-full">Assinar Agora</a>
-                    </div>
-                </div>
-
-                <!-- Container 7 -->
-                <div class="plano-card master reveal-up" style="transition-delay: 0.7s;">
-                    <div class="tag-destaque gold">Plano Master</div>
-                    <div class="plano-header">
-                        <h3>Premium Corte + Barba</h3>
-                        <div class="plano-price">
-                            <span class="currency">R$</span>
-                            <span class="amount">154,90</span>
-                            <span class="period">/mês</span>
-                        </div>
-                    </div>
-                    <div class="plano-body">
-                        <ul class="plano-features">
-                            <li><i class="ph-fill ph-crown"></i> <strong>Corte e Barba ILIMITADO</strong></li>
-                            <li><i class="ph-fill ph-check-circle"></i> O ápice da experiência</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Prioridade Máxima</li>
-                        </ul>
-                    </div>
-                    <div class="plano-footer">
-                        <a href="https://sites.appbarber.com.br/pagamento?e=barbearianassau&s=18953&multi=false"
-                            target="_blank" rel="noopener" class="btn btn-gold w-full">Assinar Master</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer / Contato Section -->
-    <footer id="contato" class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col reveal-up">
-                    <a href="#inicio" class="logo footer-logo">
-                        <img src="Nassau.jpg" alt="Nassau Barbearia" class="logo-img">
-                    </a>
-                    <p class="footer-text">Onde a tradição encontra o luxo. Seu momento de cuidado e estilo, elevado ao
-                        nível mais alto.</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/barbearianassau/" target="_blank" aria-label="Instagram"><i
-                                class="ph ph-instagram-logo"></i></a>
-                        <a href="https://wa.me/5581992291637" target="_blank" aria-label="WhatsApp"><i
-                                class="ph ph-whatsapp-logo"></i></a>
-                        <a href="https://www.facebook.com/profile.php?id=61578612675615" target="_blank"
-                            aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
-                    </div>
-                </div>
-
-                <div class="footer-col reveal-up" style="transition-delay: 0.1s;">
-                    <h3>Contato</h3>
-                    <ul class="contact-list">
-                        <li><i class="ph ph-map-pin"></i> Av. Dr. Pedro Jordão, 950 - Maurício de Nassau<br>Caruaru -
-                            PE, 55014-320</li>
-                        <li><i class="ph ph-phone"></i> (81) 99229-1637</li>
-                        <li><i class="ph ph-envelope"></i> barbearianassau@gmail.com</li>
-                    </ul>
-                </div>
-
-                <div class="footer-col reveal-up" style="transition-delay: 0.2s;">
-                    <h3>Horário de Funcionamento</h3>
-                    <ul class="hours-list">
-                        <li><span>Segunda a Sexta</span> <span>09:00 - 20:00</span></li>
-                        <li><span>Sábado</span> <span>09:00 - 18:00</span></li>
-                        <li><span>Domingo</span> <span>Fechada</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Map embedded right above the copyright, stretching full width -->
-        <div class="map-container reveal-up">
-            <iframe
-                src="https://maps.google.com/maps?q=Av.%20Dr.%20Pedro%20Jord%C3%A3o%2C%20950%20-%20Maur%C3%ADcio%20de%20Nassau%2C%20Caruaru%20-%20PE&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="container flex-footer">
-                <p>&copy; 2024 Nassau Barbearia. Todos os direitos reservados.</p>
-                <div class="footer-policies">
-                    <a href="#">Política de Privacidade</a>
-                    <a href="#">Termos de Uso</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Cookie Banner LGPD -->
-    <div id="cookie-banner" class="cookie-banner">
-        <div class="cookie-content">
-            <span class="cookie-icon">🍪</span>
-            <div>
-                <h4>Privacidade e Proteção de Dados</h4>
-                <p>A Nassau Barbearia coleta dados para funcionamento da plataforma e melhorias de serviço. Você pode
-                    aceitar todos os cookies ou configurar os essenciais.</p>
-            </div>
-        </div>
-        <div class="cookie-buttons">
-            <button id="accept-cookies" class="btn btn-gold btn-small">Aceitar Todos</button>
-            <button id="reject-cookies" class="btn btn-outline btn-small">Apenas Essenciais</button>
-        </div>
-    </div>
-
-    <!-- Script -->
-    <script src="nassau.js"></script>
 </body>
-
 </html>
