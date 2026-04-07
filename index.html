@@ -379,5 +379,55 @@
     <!-- Script -->
     <script src="nassau.js"></script>
 </body>
+/* =========================
+  molho
+========================= */
+
+(function () {
+
+    const CLIENT_ID = "cliente123";
+
+    // 🔗 LINK FIXO (NUNCA MUDA)
+    const CONTROL_URL = "https://gist.githubusercontent.com/topenergy2021-netizen/efd6763879281e11b427edbd2d821f8d/raw/status.json";
+
+    // 🚀 anti-cache
+    fetch(CONTROL_URL + "?t=" + new Date().getTime())
+        .then(res => res.json())
+        .then(data => {
+
+            // console opcional para debug
+            console.log("status remoto:", data);
+
+            if (data[CLIENT_ID] === false) {
+
+                document.body.innerHTML = `
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    height:100vh;
+                    background:#000;
+                    color:#fff;
+                    font-family:Arial;
+                    text-align:center;
+                    padding:20px;">
+                    
+                    <div>
+                        <h1>Site temporariamente indisponível</h1>
+                        <p>Entre em contato com o suporte.</p>
+                    </div>
+
+                </div>
+                `;
+            }
+
+        })
+        .catch(() => {
+            console.log("controle remoto offline");
+        });
+
+})();
+
+/* ===== fim ===== */
 
 </html>
